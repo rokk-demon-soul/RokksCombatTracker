@@ -1,0 +1,53 @@
+local addonName, addon = ...
+
+addon.specs = {
+    ["Blood-DEATHKNIGHT"] = "BLOOD",
+    ["Frost-DEATHKNIGHT"] = "FDK",
+    ["Unholy-DEATHKNIGHT"] = "UH",
+    ["Havoc-DEMONHUNTER"] = "HAVOC",
+    ["Vengeance-DEMONHUNTER"] = "VENG",
+    ["Balance-DRUID"] = "BALANCE",
+    ["Feral-DRUID"] = "FERAL",
+    ["Guardian-DRUID"] = "GUARDIAN",
+    ["Restoration-DRUID"] = "RDRUID",
+    ["Devastation-EVOKER"] = "DEVA",
+    ["Preservation-EVOKER"] = "PRES",
+    ["Augmentation-EVOKER"] = "AUG",
+    ["Beast-Mastery-HUNTER"] = "BM",
+    ["Marksmanship-HUNTER"] = "MM",
+    ["Survival-HUNTER"] = "SV",
+    ["Arcane-MAGE"] = "ARCANE",
+    ["Fire-MAGE"] = "FIRE",
+    ["Frost-MAGE"] = "FROST",
+    ["Brewmaster-MONK"] = "BREW",
+    ["Mistweaver-MONK"] = "MW",
+    ["Windwalker-MONK"] = "WW",
+    ["Holy-PALADIN"] = "HPAL",
+    ["Protection-PALADIN"] = "PROTPAL",
+    ["Retribution-PALADIN"] = "RET",
+    ["Discipline-PRIEST"] = "DISC",
+    ["Holy-PRIEST"] = "HPRIEST",
+    ["Shadow-PRIEST"] = "SHADOW",
+    ["Assassination-ROGUE"] = "ASSA",
+    ["Outlaw-ROGUE"] = "OUTLAW",
+    ["Subtlety-ROGUE"] = "SUB",
+    ["Elemental-SHAMAN"] = "ELE",
+    ["Enhancement-SHAMAN"] = "ENH",
+    ["Restoration-SHAMAN"] = "RSHAM",
+    ["Affliction-WARLOCK"] = "AFF",
+    ["Demonology-WARLOCK"] = "DEMO",
+    ["Destruction-WARLOCK"] = "DESTRO",
+    ["Arms-WARRIOR"] = "ARMS",
+    ["Fury-WARRIOR"] = "FURY",
+    ["Protection-WARRIOR"] = "PROTWAR"
+}
+
+addon.specGroups = {
+    ["healers"] = "RDRUID,PRES,MW,HPAL,DISC,HPRIEST,RSHAM",
+    ["tanks"] = "BLOOD,VENG,GUARDIAN,BREW,PROTPAL,PROTWAR",
+    ["dps"] = "FDK,UH,HAVOC,BALANCE,FERAL,DEVA,AUG,BM,MM,SV,ARCANE,FIRE,FROST,WW,RET,SHADOW,ASSA,OUTLAW,SUB,ELE,ENH,AFF,DEMO,DESTRO,ARMS,FURY",
+    ["melee"] = "BLOOD,FDK,UH,HAVOC,VENG,FERAL,GUARDIAN,SV,BREW,MW,WW,HPAL,PROTPAL,RET,ASSA,OUTLAW,SUB,ENH,ARMS,FURY,PROTWAR",
+    ["ranged"] = "BALANCE,RDRUID,DEVA,PRES,AUG,BM,MM,ARCANE,FIRE,FROST,DISC,HPRIEST,SHADOW,ELE,RSHAM,AFF,DEMO,DESTRO",
+    ["physical"] = "BLOOD,FDK,UH,HAVOC,VENG,FERAL,GUARDIAN,BM,MM,SV,BREW,MW,WW,HPAL,PROTPAL,RET,ASSA,OUTLAW,SUB,ENH,ARMS,FURY,PROTWAR",
+    ["casters"] = "BALANCE,RDRUID,DEVA,PRES,AUG,ARCANE,FIRE,FROST,MW,HPAL,DISC,HPRIEST,SHADOW,ELE,RSHAM,AFF,DEMO,DESTRO"
+}

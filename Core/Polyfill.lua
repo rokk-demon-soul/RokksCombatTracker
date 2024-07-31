@@ -1,0 +1,3 @@
+local addonName, addon = ...
+
+addon.GetSpellInfo = GetSpellInfo and GetSpellInfo or C_Spell.GetSpellInfo

@@ -1,0 +1,32 @@
+## Interface: 100207, 110000
+## Title: RokksCombatTracker
+## Author: Rokks-Sargeras
+## AddonCompartmentFunc: b35904e6bb2943c5adcfc4058c8cf6b3_func
+## SavedVariablesPerCharacter: b35904e6bb2943c5adcfc4058c8cf6b3
+
+Core\Polyfill.lua
+
+Lib\RokksSpellBars-1.0\RokksSpellBars.xml
+Lib\RokksSpellPlates-1.0\RokksSpellPlates.xml
+
+Core\DefaultSettings.lua
+Core\EventListener.lua
+Core\Initialize.lua
+Core\Localization.lua
+Core\SlashCommands.lua
+Core\Utilities.lua
+Core\FrameFactory.lua
+Core\Specs.lua
+
+Core\EventHandlers\EventHandlers.lua
+Core\EventHandlers\AuraEvent.lua
+Core\EventHandlers\AuraRemovedEvent.lua
+Core\EventHandlers\CastStartEvent.lua
+Core\EventHandlers\CastFailedEvent.lua
+Core\EventHandlers\CastInterruptEvent.lua
+Core\EventHandlers\CastSuccessEvent.lua
+Core\EventHandlers\TargetChangedEvent.lua
+
+Profiles\Default.lua
+
+RokksCombatTracker.lua

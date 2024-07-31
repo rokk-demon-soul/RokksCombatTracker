@@ -1,0 +1,11 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	
+	<Script file="Core\Polyfill.lua"/>
+	<Script file="Core\SpellQueue.lua"/>
+	<Script file="Core\Initialize.lua"/>
+	<Script file="Core\FrameFactory.lua"/>
+	<Script file="Core\EventHandlers.lua"/>
+	<Script file="Core\Utilities.lua"/>
+	<Script file="Core\SpellBars.lua"/>
+</Ui>
