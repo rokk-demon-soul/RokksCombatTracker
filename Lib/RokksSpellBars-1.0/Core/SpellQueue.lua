@@ -16,15 +16,8 @@ function addon.spellBars.addSpellToQueue(bar, spell)
 	local spellData, rank, texture	
 	spellData, rank, texture = addon.GetSpellInfo(spell.spellId)
 
-	if addon.WoWInterfaceVersion <= 110000 then
-		-- Old WoW v <= 11.0
-		name = spellData
-		texture = texture
-	else
-		-- War Within >= v11.0002
-		name = spellData.name
-		texture = spellData.iconID
-	end
+	name = spellData.name
+	texture = spellData.iconID
 
 	local startTime = GetTime()
 

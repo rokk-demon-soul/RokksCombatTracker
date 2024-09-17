@@ -63,7 +63,11 @@ function addon.spellPlates.showSpell(unitGuid, spellId, duration)
 end
 
 function addon.spellPlates.showIcon(id, parent, spellId, duration, startTime, endTime)
-	local name, rank, texture = addon.GetSpellInfo(spellId)
+	local spellData, rank, texture	
+	spellData, rank, texture = addon.GetSpellInfo(spellId)
+
+	name = spellData.name
+	texture = spellData.iconID
 	
 	local icon = addon.spellPlates.activeSpells[id] ~= nil and addon.spellPlates.activeSpells[id] or
 			     addon.spellPlates.getNewIcon()

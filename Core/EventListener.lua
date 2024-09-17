@@ -9,6 +9,7 @@ function addon.registerEvents()
     addon.eventFrame:RegisterEvent("ADDON_LOADED")
     addon.eventFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
     addon.eventFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
+    addon.eventFrame:RegisterEvent("PLAYER_FOCUS_CHANGED")
     addon.eventFrame:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
     addon.eventFrame:RegisterEvent("PVP_MATCH_ACTIVE")
     addon.eventFrame:RegisterEvent("PVP_MATCH_INACTIVE")
@@ -32,11 +33,13 @@ function addon.routeEvent(self, event, ...)
 
     if event == "PVP_MATCH_ACTIVE" then
         if not addon.initialized then return end
+        if addon.settings.hideChatInArena then addon.hideChat() end
         addon.checkDrinkingTimer = C_Timer.NewTicker(1, function() addon.checkDrinking() end)
     end
 
     if event == "PVP_MATCH_INACTIVE" then
         if not addon.initialized then return end
+        if addon.settings.hideChatInArena then addon.showChat() end
         if addon.checkDrinkingTimer then
             addon.checkDrinkingTimer:Cancel()
             addon.checkDrinkingTimer = nil
@@ -48,6 +51,11 @@ function addon.routeEvent(self, event, ...)
         addon.targetChangedEvent(...)       
     end
 
+    if event == "PLAYER_FOCUS_CHANGED" then
+        if not addon.initialized then return end
+        addon.focusChangedEvent(...)       
+    end
+
     if event == "PLAYER_ENTERING_WORLD" or 
        event == "PLAYER_SPECIALIZATION_CHANGED" then
         if not addon.initialized then return end
@@ -56,7 +64,16 @@ function addon.routeEvent(self, event, ...)
 end
 
 function addon.onCombatLogEvent(eventInfo)
-    if IsResting() and addon.settings.enabledWhileResting == false then return end
+    local instanceName, instanceType = GetInstanceInfo()
+
+    addon.state.resting = IsResting()
+    addon.state.inArena = IsActiveBattlefieldArena()
+    addon.state.inBattleground = UnitInBattleground("player") and true or false
+    addon.state.inDungeon = instanceType == "party" and true or false
+    addon.state.inRaid = instanceType == "raid" and true or false    
+
+    if addon.settings.enabledWhileResting == false and addon.state.resting then return end
+    if addon.settings.enabledInBattlegrounds == false and addon.state.inBattleground then return end
     
     local subEvent = eventInfo[2]
 

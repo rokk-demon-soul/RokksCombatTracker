@@ -6,11 +6,11 @@ function addon.targetChangedEvent(...)
     local destGuid = UnitGUID("target")
     local destName = UnitName("target")
     local timestamp = GetTime()
-    local inArena = IsActiveBattlefieldArena()
 
     sourceFlags = UnitIsFriend("player","target") and 1304 or 1352 -- for buffs
-    addon.createTargetAuraEvents("HELPFUL", sourceFlags, destFlags, destGuid, destName, timestamp, inArena)
+    addon.createTargetAuraEvents("HELPFUL", sourceFlags, destFlags, destGuid, destName, timestamp)
 
     sourceFlags = UnitIsFriend("player","target") and 1352 or 1304 -- for debuffs
-    addon.createTargetAuraEvents("HARMFUL", sourceFlags, destFlags, destGuid, destName, timestamp, inArena)
+    addon.createTargetAuraEvents("HARMFUL", sourceFlags, destFlags, destGuid, destName, timestamp)
+   
 end

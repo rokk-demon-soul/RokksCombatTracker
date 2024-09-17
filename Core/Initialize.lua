@@ -10,11 +10,11 @@ function addon.initialize()
     
     addon.spellBars.initialize(addon.profiles[addon.settings.profile], addon.settings.locked)
     addon.spellPlates.initialize(addon.profiles[addon.settings.profile].nameplates)
+    addon.state = {}
 
     addon.loadProfiles()
     addon.registerSlashCommands()
     addon.announceThrottle = addon.announceThrottle or {}
-
     addon.initialized = true
 end
 

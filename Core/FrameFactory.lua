@@ -17,7 +17,7 @@ function addon.frameFactory.infoFrame()
 
 	infoFrame.addonName:SetJustifyH("CENTER")
 	infoFrame.addonName:SetJustifyV("MIDDLE")	
-	infoFrame.addonName:SetPoint("CENTER", "UIParent", "CENTER", 0, 40)
+	infoFrame.addonName:SetPoint("CENTER", "UIParent", "CENTER", 0, -60)
 
     local font = infoFrame.addonName:GetFont()
 	infoFrame.addonName:SetFont(font, "35")
@@ -28,7 +28,7 @@ function addon.frameFactory.infoFrame()
 
 	infoFrame.Text:SetJustifyH("CENTER")
 	infoFrame.Text:SetJustifyV("MIDDLE")	
-	infoFrame.Text:SetPoint("CENTER", "UIParent", "CENTER", 0, 0)
+	infoFrame.Text:SetPoint("CENTER", "UIParent", "CENTER", 0, -100)
 
     local font = infoFrame.Text:GetFont()
 	infoFrame.Text:SetFont(font, "30")

@@ -97,7 +97,7 @@ function addon.getSpellAttributes(event, eventType, options)
     local attributes = addon.profiles[addon.settings.profile][eventType][event.spellId]
     if attributes == nil then
         -- Check to see if we might just have the wrong spell id in the profile
-        if addon.debug then
+        if addon.settings.debug then
             for spellId, spell in pairs(addon.profiles[addon.settings.profile][eventType]) do
                 if event.spellName == spell.name and string.match(event.sourceGuid, "Player") then
                     addon.debug(tostring(eventType) .. ": " .. tostring(event.spellName) .. " (" .. tostring(event.spellId) .. ") not found in profile.")
@@ -256,7 +256,9 @@ function addon.playSounds(event, spellAttributes, attributes, options)
                                     string.lower(spellAttributes.soundPriority) == "low" and 3 or
                                     spellAttributes.soundPriority
 
-    if tonumber(addon.settings.soundPriority) >= spellAttributes.soundPriority and spellAttributes.soundPriority ~= 0 then
+    local soundPriority = tonumber(addon.settings.soundPriority)
+    if soundPriority == 0 then return end
+    if soundPriority >= spellAttributes.soundPriority and spellAttributes.soundPriority ~= 0 then
         options.announce = options.announce == nil and true or options.announce
         spellAttributes.announce = attributes.announce    
         if spellAttributes.announce and options.announce and not event.targetAura then
@@ -348,14 +350,18 @@ function addon.playCustomSound(soundfile)
     return
 end
 
-function addon.getAuraDuration(spellId, destGuid, auraType, inArena)
-    local destUnitId = addon.getUnitId(inArena, destGuid)
+function addon.getAuraDuration(spellId, destGuid, auraType)
+    local destUnitId = addon.getUnitId(destGuid)
     local auraFilter = auraType == "BUFF" and "HELPFUL" or auraType == "DEBUFF" and "HARMFUL" or ""
 
     if destUnitId == nil then return end
     
     local spellData = addon.getUnitAura(destUnitId, spellId, auraFilter)
     
+    if not spellData then
+        return nil
+    end
+
     local duration = spellData.duration
     local expTime = spellData.expirationTime
 
@@ -364,7 +370,7 @@ function addon.getAuraDuration(spellId, destGuid, auraType, inArena)
     return duration
 end
 
-function addon.createTargetAuraEvents(auraType, sourceFlags, destFlags, destGuid, destName, timestamp, inArena)
+function addon.createTargetAuraEvents(auraType, sourceFlags, destFlags, destGuid, destName, timestamp)
     AuraUtil.ForEachAura("target", auraType, nil, function(...)
         local eventInfo = {}
         local spellId = select(10, ...)

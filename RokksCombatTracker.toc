@@ -26,6 +26,7 @@ Core\EventHandlers\CastFailedEvent.lua
 Core\EventHandlers\CastInterruptEvent.lua
 Core\EventHandlers\CastSuccessEvent.lua
 Core\EventHandlers\TargetChangedEvent.lua
+Core\EventHandlers\FocusChangedEvent.lua
 
 Profiles\Default.lua
 

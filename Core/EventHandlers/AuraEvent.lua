@@ -9,10 +9,14 @@ function addon.auraEvent(eventInfo)
     local spell = addon.getSpellConfig(event, attributes)
 
     -- Duration
-    local inArena = IsActiveBattlefieldArena()   
-    local duration = addon.getAuraDuration(event.spellId, event.destGuid, event.auraType, inArena)
+    local duration = addon.getAuraDuration(event.spellId, event.destGuid, event.auraType)
 
-    if attributes.nameplate then
+    local nameplatesEnabled = true    
+    if addon.settings.nameplateIconsEnabledInDungeons == false and addon.state.inDungeon or addon.state.inRaid then
+        nameplatesEnabled = false
+    end
+
+    if attributes.nameplate and nameplatesEnabled then
         local isNpc = strfind(string.lower(event.destGuid), "creature")
         if duration == nil then
             duration = isNpc and attributes.npcDuration or attributes.playerDuration

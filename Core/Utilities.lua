@@ -14,7 +14,7 @@ function addon.debugVarArgs(...)
     local args = table.pack(...)
 
     print("... {")
-    for i = 1,args.n do
+    for i = 1, args.n do
         print("  arg" .. i .. ": " .. tostring(v))
     end
 
@@ -50,12 +50,17 @@ function addon.help()
     print("\124cffBAFF1A/rct lock \124cffFFFFFF- " .. addon.L["RCT_Command_Lock"])
     print("\124cffBAFF1A/rct unlock \124cffFFFFFF- " .. addon.L["RCT_Command_Unlock"])
     print("\124cffBAFF1A/rct reset \124cffFFFFFF- " .. addon.L["RCT_Command_Reset"])
-    print("\124cffBAFF1A/rct resting \124cffFFFFFF- " .. addon.L["RCT_Command_Resting"])
+    print("\124cffBAFF1A/rct spam high \124cffFFFFFF- " .. addon.L["RCT_Spam_Level_High"])
+    print("\124cffBAFF1A/rct spam med \124cffFFFFFF- " .. addon.L["RCT_Spam_Level_Medium"])
+    print("\124cffBAFF1A/rct spam low \124cffFFFFFF- " .. addon.L["RCT_Spam_Level_Low"])
+    print("\124cffBAFF1A/rct spam off \124cffFFFFFF- " .. addon.L["RCT_Spam_Level_Off"])
+    print("\124cffBAFF1A/rct toggle bg \124cffFFFFFF- " .. addon.L["RCT_Toggle_BGs"])
+    print("\124cffBAFF1A/rct toggle resting \124cffFFFFFF- " .. addon.L["RCT_Toggle_Resting"])
     print("\124cffDB09FE------------------------------------")
 end
 
-function addon.getUnitId(inArena, destGuid)
-    if inArena then
+function addon.getUnitId(destGuid)
+    if addon.state.inArena then
         unitId = UnitGUID("player") == destGuid and "player" or
                  UnitGUID("party1") == destGuid and "party1" or
                  UnitGUID("party2") == destGuid and "party2" or
@@ -117,13 +122,50 @@ end
 function addon.toggleDebug()
     addon.settings.debug = not addon.settings.debug
     local debugState = addon.settings.debug and addon.L["RCT_Debug_Enabled"] or addon.L["RCT_Debug_Disabled"]
-    print(debugState)
+    print("\124cffDB09FE" .. debugState)
 end
 
-function addon.toggleResting()
-    addon.settings.enabledWhileResting = not addon.settings.enabledWhileResting
+function addon.toggleSetting(param)
+    if param == "bg" then
+        addon.settings.toggleBg = not addon.settings.toggleBg
+        addon.enableWhileInBattleground(addon.settings.toggleBg)
+    end
+    if param == "resting" then
+        addon.settings.toggleResting = not addon.settings.toggleResting
+        addon.enableWhileResting(addon.settings.toggleResting)
+    end
+end
+
+function addon.enableWhileResting(enabled)
+    addon.settings.enabledWhileResting = enabled == true and true or false
     local restingState = addon.settings.enabledWhileResting and addon.L["RCT_Resting_Enabled"] or addon.L["RCT_Resting_Disabled"]
-    print(restingState)
+    print("\124cffDB09FE" .. restingState)
+end
+
+function addon.enableWhileInBattleground(enabled)
+    addon.settings.enabledInBattlegrounds = enabled == true and true or false
+    local bgEnabledState = addon.settings.enabledInBattlegrounds and addon.L["RCT_Battlegrounds_Enabled"] or addon.L["RCT_Battlegrounds_Disabled"]
+    print("\124cffDB09FE" .. bgEnabledState)
+end
+
+function addon.setSoundPriority(soundPriority)
+    if soundPriority ~= "high" and soundPriority ~= "med" and soundPriority ~= "low" and soundPriority ~= "off" and soundPriority ~= "" then
+        print(addon.L["Unknown_Option"] .. tostring(soundPriority))
+        return
+    end
+
+    if soundPriority ~= "" then
+        addon.settings.soundPriority = soundPriority == "high" and 1 or
+                                       soundPriority == "med" and 2 or
+                                       soundPriority == "low" and 3 or
+                                       soundPriority == "off" and 0
+    end
+
+    local soundPriorityState = addon.settings.soundPriority == 1 and addon.L["RCT_Sound_Priority_High"] or
+                               addon.settings.soundPriority == 2 and addon.L["RCT_Sound_Priority_Medium"] or
+                               addon.settings.soundPriority == 3 and addon.L["RCT_Sound_Priority_Low"] or
+                               addon.settings.soundPriority == 0 and addon.L["RCT_Sound_Priority_Off"]
+    print("\124cffDB09FE" .. soundPriorityState)
 end
 
 function addon.isTrue(value)
@@ -149,8 +191,7 @@ function addon.setPlayerSpec()
 end
 
 function addon.checkDrinking()
-    local inArena = IsActiveBattlefieldArena()
-    if not inArena then return false end
+    if not addon.state.inArena then return false end
 
     local checkUnits = {"player", "party1", "party2", "arena1", "arena2", "arena3"}
     for key, unit in pairs(checkUnits) do
@@ -195,4 +236,40 @@ end
 
 function addon.round(number, decimals)
     return (("%%.%df"):format(decimals)):format(number)
+end
+
+function addon.hideChat()
+    for i = 1, NUM_CHAT_WINDOWS do
+        local tab = _G["ChatFrame" .. i .. "Tab"]
+        local window = _G["ChatFrame" .. i]
+
+        if not tab and not window then return end
+
+        tab.showLater = true
+        window.showLater = true
+
+        tab:SetAlpha(0)
+        window:SetAlpha(0)
+    end
+end
+
+function addon.showChat()
+    for i = 1, NUM_CHAT_WINDOWS do
+        local tab = _G["ChatFrame" .. i .. "Tab"]
+        local window = _G["ChatFrame" .. i]
+
+        if not tab and not window then return end
+
+        if tab.showLater then tab:SetAlpha(1) end
+        if window.showLater then window:SetAlpha(1) end
+    end
+end
+
+rokksCombatTracker = {}
+function rokksCombatTracker.hideChat()
+    addon.hideChat()
+end
+
+function rokksCombatTracker.showChat()
+    addon.showChat()
 end
