@@ -63,13 +63,5 @@ function addon.registerSlashCommands()
             if param == nil then soundPriority = "" end
             addon.setSoundPriority(soundPriority)
         end
-
-        if command == "hideChat" then
-            addon.hideChat()
-        end
-
-        if command == "showChat" then
-            addon.showChat()
-        end
     end
 end

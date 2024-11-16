@@ -22,6 +22,7 @@ function addon.debugVarArgs(...)
 end
 
 function addon.debug(var, name)
+    if not rctdebug then return end
     if type(var) == "string" then
         local output = name ~= nil and name .. ": " .. var or var
         print(output)
@@ -236,40 +237,4 @@ end
 
 function addon.round(number, decimals)
     return (("%%.%df"):format(decimals)):format(number)
-end
-
-function addon.hideChat()
-    for i = 1, NUM_CHAT_WINDOWS do
-        local tab = _G["ChatFrame" .. i .. "Tab"]
-        local window = _G["ChatFrame" .. i]
-
-        if not tab and not window then return end
-
-        tab.showLater = true
-        window.showLater = true
-
-        tab:SetAlpha(0)
-        window:SetAlpha(0)
-    end
-end
-
-function addon.showChat()
-    for i = 1, NUM_CHAT_WINDOWS do
-        local tab = _G["ChatFrame" .. i .. "Tab"]
-        local window = _G["ChatFrame" .. i]
-
-        if not tab and not window then return end
-
-        if tab.showLater then tab:SetAlpha(1) end
-        if window.showLater then window:SetAlpha(1) end
-    end
-end
-
-rokksCombatTracker = {}
-function rokksCombatTracker.hideChat()
-    addon.hideChat()
-end
-
-function rokksCombatTracker.showChat()
-    addon.showChat()
 end

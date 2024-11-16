@@ -33,13 +33,11 @@ function addon.routeEvent(self, event, ...)
 
     if event == "PVP_MATCH_ACTIVE" then
         if not addon.initialized then return end
-        if addon.settings.hideChatInArena then addon.hideChat() end
         addon.checkDrinkingTimer = C_Timer.NewTicker(1, function() addon.checkDrinking() end)
     end
 
     if event == "PVP_MATCH_INACTIVE" then
         if not addon.initialized then return end
-        if addon.settings.hideChatInArena then addon.showChat() end
         if addon.checkDrinkingTimer then
             addon.checkDrinkingTimer:Cancel()
             addon.checkDrinkingTimer = nil

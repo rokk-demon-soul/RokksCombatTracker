@@ -10,6 +10,9 @@ function addon.spellBars.addSpellToQueue(bar, spell)
 	   spell.spellId == nil or
 	   spell.duration == nil or
 	   type(spell.duration) ~= "number" or
+	   spell.duration == nil or
+	   not tostring(tonumber(spell.duration)) or
+	   spell.duration <= .25 or	   
 	   index > settings.maxSpellQueue
 	   then return end
 

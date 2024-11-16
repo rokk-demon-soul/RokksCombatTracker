@@ -74,6 +74,8 @@ function addon.spellPlates.showIcon(id, parent, spellId, duration, startTime, en
 
 	if icon == nil then return end
 
+	if rctdebug == true then print("Showing  " .. icon:GetDebugName()) end
+
 	icon.parent = parent
 	icon.spellId = spellId
 	icon.inUse = true
@@ -101,6 +103,8 @@ function addon.spellPlates.hideIcon(icon)
 	icon:Hide()
 	icon.border:Hide()
 	icon.inUse = false
+
+	if rctdebug == true then print("Hiding  " .. icon:GetDebugName()) end	
 
 	local parent = icon.parent
 	
@@ -152,15 +156,13 @@ function addon.spellPlates.cooldownFinished(self)
 end
 
 function addon.spellPlates.getNewIcon()
-	local icon = nil
 	for i = 1, addon.spellPlates.settings.maxIcons do
-		local iconFrame = _G[addonName .. "_IconFrame" .. i]
-		if not iconFrame.inUse then
-			icon = iconFrame
+		local icon = _G[addonName .. "_IconFrame" .. i]
+		if not icon.inUse then
+			if rctdebug == true then print("Fetching free icon frame " .. icon:GetDebugName()) end
+			return icon
 		end
 	end
-
-	return icon
 end
 
 function addon.spellPlates.getActiveSpellIndex(unitGuid, nameplateId, spellId)

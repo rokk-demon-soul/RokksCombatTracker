@@ -8,6 +8,8 @@ function addon.spellPlates.createNameplateFrames()
 		local frameKey = addonName .. "_IconFrame" .. i
 		local icon = CreateFrame("Frame", frameKey, UIParent, "BackdropTemplate")
 
+		if rctdebug == true then print("Creating  " .. icon:GetDebugName()) end
+
 		icon:SetPoint("CENTER")
 			
 		icon.texture = icon:CreateTexture()

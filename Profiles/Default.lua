@@ -418,6 +418,7 @@ addon.profiles.default = {
         [287712] = {name="Haymaker", spellType="cc", nameplate="true", npcDuration="3", playerDuration="2"},
         [19577] = {name="Intimidation", spellType="cc", nameplate="true", npcDuration="5", playerDuration="3"},
         [24394] = {name="Intimidation", spellType="cc", nameplate="true", npcDuration="5", playerDuration="3"},
+        [357021] = {name="Consecutive Concussion", spellType="cc", nameplate="true", npcDuration="4", playerDuration="4"},        
         [408] = {name="Kidney Shot", spellType="cc", nameplate="true", npcDuration="6", playerDuration="5", announce="hostile", soundPriority="medium"},
         [119381] = {name="Leg Sweep", spellType="cc", nameplate="true", npcDuration="3", playerDuration="3"},
         [305483] = {name="Lightning Lasso", spellType="cc", nameplate="true", npcDuration="5", playerDuration="5"},
@@ -496,7 +497,7 @@ addon.profiles.default = {
     },
     ["nameplates"] = {
         ["yOffset"] = 50,
-        ["maxIcons"] = 100,
+        ["maxIcons"] = 25,
         ["maxDuration"] = 60,
         ["iconSize"] = 34,
         ["iconSpacing"] = 3,
@@ -523,7 +524,7 @@ addon.profiles.default = {
                 ["relativeTo"] = "UIParent", 
                 ["relativePoint"] = "CENTER", 
                 ["xOfs"] = -209, 
-                ["yOfs"] = -184, 
+                ["yOfs"] = -177, 
             }, 
             ["icons"] = {
                 ["align"] = "RIGHT", 
@@ -560,7 +561,7 @@ addon.profiles.default = {
                 ["relativeTo"] = "UIParent", 
                 ["relativePoint"] = "CENTER", 
                 ["xOfs"] = 209, 
-                ["yOfs"] = -184, 
+                ["yOfs"] = -177, 
             }, 
             ["icons"] = {
                 ["align"] = "LEFT", 
@@ -596,7 +597,7 @@ addon.profiles.default = {
                 ["relativeTo"] = "UIParent", 
                 ["relativePoint"] = "CENTER", 
                 ["xOfs"] = -200, 
-                ["yOfs"] = -139, 
+                ["yOfs"] = -132, 
             }, 
             ["icons"] = {
                 ["align"] = "RIGHT", 
@@ -633,7 +634,7 @@ addon.profiles.default = {
                 ["relativeTo"] = "UIParent", 
                 ["relativePoint"] = "CENTER", 
                 ["xOfs"] = 200, 
-                ["yOfs"] = -139, 
+                ["yOfs"] = -132, 
             }, 
             ["icons"] = {
                 ["align"] = "LEFT", 

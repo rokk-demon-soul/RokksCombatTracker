@@ -357,7 +357,6 @@ function addon.getAuraDuration(spellId, destGuid, auraType)
     if destUnitId == nil then return end
     
     local spellData = addon.getUnitAura(destUnitId, spellId, auraFilter)
-    
     if not spellData then
         return nil
     end

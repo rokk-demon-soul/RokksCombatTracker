@@ -10,13 +10,12 @@ addon.defaultSettings = {
     ["defaultBar"] = "primary",
     ["friendlyBarSuffix"] = "-friendly",
     ["hostileBarSuffix"] = "-hostile",
-    ["debug"] = false,
+    ["debug"] = true,
     ["defaultDuration"] = 5,
     ["removeSpellDuration"] = .001,
     ["soundPriority"] = 3,
     ["soundEffects"] = true,
     ["soundChannel"] = "DIALOG",
-    ["hideChatInArena"] = false,
     ["styles"] = {
         ["offensive"] = {backdropColor={0,1,1,.3},borderColor={0,1,1,.8}}, -- light blue
         ["defensive"] = {backdropColor={.54,.27,.07,.6},borderColor={.78,.61,.43,.9}}, -- brown

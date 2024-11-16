@@ -1,6 +1,6 @@
 ## Interface: 100207, 110000
 ## Title: RokksCombatTracker
-## Author: Rokks-Sargeras
+## Author: Rokk
 ## AddonCompartmentFunc: b35904e6bb2943c5adcfc4058c8cf6b3_func
 ## SavedVariablesPerCharacter: b35904e6bb2943c5adcfc4058c8cf6b3
 

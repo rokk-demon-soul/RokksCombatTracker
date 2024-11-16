@@ -20,6 +20,7 @@ function addon.auraEvent(eventInfo)
         local isNpc = strfind(string.lower(event.destGuid), "creature")
         if duration == nil then
             duration = isNpc and attributes.npcDuration or attributes.playerDuration
+            addon.debug("calculated duration")
         elseif addon.settings.debug and not isNpc then
             -- Collect PVE/PVP CC durations
             addon.settings.ccDurations = addon.settings.ccDurations or {}
@@ -35,9 +36,18 @@ function addon.auraEvent(eventInfo)
             }
         end
 
-        if duration == nil then return end
+        if not duration then
+            addon.debug(duration,"duration was nil")
+            return
+        else
 
-        addon.spellPlates.showSpell(event.destGuid, spell.spellId, duration)
+            addon.debug(event.destGuid, "destGuid")
+            addon.debug(event.spellName, "spell")
+            addon.debug(duration, "duration")
+            addon.debug(tostring(type(duration)), "duration type")
+
+            addon.spellPlates.showSpell(event.destGuid, spell.spellId, duration)
+        end
     else
         if duration == nil then return end
         spell.duration = duration
