@@ -22,7 +22,7 @@ function addon.debugVarArgs(...)
 end
 
 function addon.debug(var, name)
-    if not rctdebug then return end
+    if not addon.settings.debug then return end
     if type(var) == "string" then
         local output = name ~= nil and name .. ": " .. var or var
         print(output)

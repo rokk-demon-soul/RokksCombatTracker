@@ -94,18 +94,12 @@ function addon.getSpellAttributes(event, eventType, options)
         event.spellId = event.extraSpellId
     end
 
-    local attributes = addon.profiles[addon.settings.profile][eventType][event.spellId]
-    if attributes == nil then
-        -- Check to see if we might just have the wrong spell id in the profile
-        if addon.settings.debug then
-            for spellId, spell in pairs(addon.profiles[addon.settings.profile][eventType]) do
-                if event.spellName == spell.name and string.match(event.sourceGuid, "Player") then
-                    addon.debug(tostring(eventType) .. ": " .. tostring(event.spellName) .. " (" .. tostring(event.spellId) .. ") not found in profile.")
-                end
-            end
-        end
-        return nil
-    end
+    local attributes = nil
+
+    -- Try to get spellId first because spells are ignored based on ID
+    if attributes == nil then attributes = addon.profiles[addon.settings.profile][eventType][event.spellId] end
+    if attributes == nil then attributes = addon.profiles[addon.settings.profile][eventType][event.spellName] end
+    if attributes == nil then return end
 
     if addon.ignoreSpell(attributes) then return end
     attributes = addon.cloneSpells(attributes, eventType)
