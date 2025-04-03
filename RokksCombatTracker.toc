@@ -1,4 +1,4 @@
-## Interface: 100207, 110000
+## Interface: 110100
 ## Title: RokksCombatTracker
 ## Author: Rokk
 ## AddonCompartmentFunc: b35904e6bb2943c5adcfc4058c8cf6b3_func
