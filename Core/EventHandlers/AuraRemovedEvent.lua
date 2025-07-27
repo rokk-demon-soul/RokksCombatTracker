@@ -9,13 +9,9 @@ function addon.auraRemovedEvent(eventInfo)
 
     local spell = addon.getSpellConfig(event, attributes)
     
-    if attributes.nameplate and addon.spellPlates.isVisible(spell.spellId) then
-        addon.spellPlates.showSpell(event.destGuid, spell.spellId, addon.settings.removeSpellDuration)
-    end
-
     local spellOnBars = addon.spellBars.isSpellVisible(attributes.bar, attributes.spellKey)
     if not spellOnBars then return end
 
     spell.duration = addon.settings.removeSpellDuration
-    addon.spellBars.showSpell(attributes.bar, spell)
+    -- addon.spellBars.showSpell(attributes.bar, spell)
 end

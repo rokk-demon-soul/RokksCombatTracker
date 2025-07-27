@@ -9,7 +9,7 @@ function addon.castSuccessEvent(eventInfo)
         local spell = addon.getSpellConfig(event, castSuccessAttributes)
         spell.duration = addon.settings.defaultDuration
         spell.showCooldown = false        
-        addon.spellBars.showSpell(castSuccessAttributes.bar, spell)
+        -- addon.spellBars.showSpell(castSuccessAttributes.bar, spell)
         return
     end
 
@@ -19,7 +19,7 @@ function addon.castSuccessEvent(eventInfo)
         local spell = addon.getSpellConfig(event, endCastAttributes)
         spell.duration = addon.settings.removeSpellDuration
         spell.showCooldown = true
-        addon.spellBars.showSpell(endCastAttributes.bar, spell)
+        -- addon.spellBars.showSpell(endCastAttributes.bar, spell)
     end
 
     -- Track Cooldowns
@@ -29,6 +29,6 @@ function addon.castSuccessEvent(eventInfo)
         spell.duration = cooldownAttributes.cd
         spell.showCooldown = true
 
-        addon.spellBars.showSpell(cooldownAttributes.bar, spell)
+        -- addon.spellBars.showSpell(cooldownAttributes.bar, spell)
     end
 end

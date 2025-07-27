@@ -13,7 +13,6 @@ addon.defaultSettings = {
     ["debug"] = true,
     ["defaultDuration"] = 5,
     ["removeSpellDuration"] = .001,
-    ["soundPriority"] = 3,
     ["soundEffects"] = true,
     ["soundChannel"] = "DIALOG",
     ["styles"] = {

@@ -54,14 +54,5 @@ function addon.registerSlashCommands()
         if command == "toggle" then
             addon.toggleSetting(param)
         end
-
-        if command == "spam" then
-            if param == "high" then soundPriority = "low" end
-            if param == "med" then soundPriority = "med" end
-            if param == "low" then soundPriority = "high" end
-            if param == "off" then soundPriority = "off" end
-            if param == nil then soundPriority = "" end
-            addon.setSoundPriority(soundPriority)
-        end
     end
 end

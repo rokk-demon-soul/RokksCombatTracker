@@ -9,7 +9,6 @@ function addon.initialize()
     addon.infoFrame = addon.frameFactory.infoFrame()
     
     addon.spellBars.initialize(addon.profiles[addon.settings.profile], addon.settings.locked)
-    addon.spellPlates.initialize(addon.profiles[addon.settings.profile].nameplates)
     addon.state = {}
 
     addon.loadProfiles()

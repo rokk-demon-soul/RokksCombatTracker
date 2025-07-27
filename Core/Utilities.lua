@@ -149,26 +149,6 @@ function addon.enableWhileInBattleground(enabled)
     print("\124cffDB09FE" .. bgEnabledState)
 end
 
-function addon.setSoundPriority(soundPriority)
-    if soundPriority ~= "high" and soundPriority ~= "med" and soundPriority ~= "low" and soundPriority ~= "off" and soundPriority ~= "" then
-        print(addon.L["Unknown_Option"] .. tostring(soundPriority))
-        return
-    end
-
-    if soundPriority ~= "" then
-        addon.settings.soundPriority = soundPriority == "high" and 1 or
-                                       soundPriority == "med" and 2 or
-                                       soundPriority == "low" and 3 or
-                                       soundPriority == "off" and 0
-    end
-
-    local soundPriorityState = addon.settings.soundPriority == 1 and addon.L["RCT_Sound_Priority_High"] or
-                               addon.settings.soundPriority == 2 and addon.L["RCT_Sound_Priority_Medium"] or
-                               addon.settings.soundPriority == 3 and addon.L["RCT_Sound_Priority_Low"] or
-                               addon.settings.soundPriority == 0 and addon.L["RCT_Sound_Priority_Off"]
-    print("\124cffDB09FE" .. soundPriorityState)
-end
-
 function addon.isTrue(value)
     return value == true or value ~= nil and type(value) == "string" and string.lower(value) == "true"
 end

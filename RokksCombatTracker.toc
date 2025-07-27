@@ -7,7 +7,6 @@
 Core\Polyfill.lua
 
 Lib\RokksSpellBars-1.0\RokksSpellBars.xml
-Lib\RokksSpellPlates-1.0\RokksSpellPlates.xml
 
 Core\DefaultSettings.lua
 Core\EventListener.lua

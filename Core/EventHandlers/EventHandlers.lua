@@ -105,7 +105,6 @@ function addon.getSpellAttributes(event, eventType, options)
     attributes = addon.cloneSpells(attributes, eventType)
 
     if not addon.validateSource(spellAttributes, attributes, options) then return end
-    if not addon.validateSpec(spellAttributes, attributes) then return end
 
     spellAttributes = addon.setSpellKey(event, spellAttributes, options)
     spellAttributes = addon.setDisplayBar(event, spellAttributes, attributes, options)
@@ -148,43 +147,6 @@ function addon.validateSource(spellAttributes, attributes, options)
     end
 
     return sourceValid
-end
-
-function addon.buildValidSpecList(spellAttributes, attributes)
-    spellAttributes.enabledSpecs = attributes.enabledSpecs or ""
-    spellAttributes.enabledGroups = attributes.enabledGroups or ""
-
-    if spellAttributes.enabledGroups then
-        local enabledGroups = {strsplit(",", spellAttributes.enabledGroups)}
-        for key, group in pairs(enabledGroups) do
-            group = string.lower(group)
-            spellAttributes.enabledSpecs = not addon.isNullOrWhiteSpace(addon.specGroups[group]) and
-                                           spellAttributes.enabledSpecs .. "," .. addon.specGroups[group] or
-                                           spellAttributes.enabledSpecs
-        end
-    end
-
-    return spellAttributes
-end
-
-function addon.validateSpec(spellAttributes, attributes)
-    local specValid = false
-
-    spellAttributes = addon.buildValidSpecList(spellAttributes, attributes)
-
-    if not addon.isNullOrWhiteSpace(spellAttributes.enabledSpecs) then
-        local enabledSpecs = {strsplit(",", spellAttributes.enabledSpecs)}
-
-        for key, spec in pairs(enabledSpecs) do
-            if string.lower(addon.settings.spec) == string.lower(spec) then
-                specValid = true
-            end
-        end
-    else
-        specValid = true
-    end
-
-    return specValid
 end
 
 function addon.setSpellKey(event, spellAttributes, options)
@@ -243,43 +205,32 @@ function addon.setMiscAttributes(spellAttributes, attributes)
 end
 
 function addon.playSounds(event, spellAttributes, attributes, options)
-    spellAttributes.soundPriority = not addon.isNullOrWhiteSpace(attributes.soundPriority) and attributes.soundPriority or 3
-    spellAttributes.soundPriority = string.lower(spellAttributes.soundPriority) == "off" and 0 or
-                                    string.lower(spellAttributes.soundPriority) == "high" and 1 or
-                                    string.lower(spellAttributes.soundPriority) == "medium" and 2 or
-                                    string.lower(spellAttributes.soundPriority) == "low" and 3 or
-                                    spellAttributes.soundPriority
-
-    local soundPriority = tonumber(addon.settings.soundPriority)
-    if soundPriority == 0 then return end
-    if soundPriority >= spellAttributes.soundPriority and spellAttributes.soundPriority ~= 0 then
-        options.announce = options.announce == nil and true or options.announce
-        spellAttributes.announce = attributes.announce    
-        if spellAttributes.announce and options.announce and not event.targetAura then
-            if ((options.useDestUnit and event.destFriendly) or (not options.useDestUnit and event.sourceFriendly)) and string.find(spellAttributes.announce, "friendly") or
-               ((options.useDestUnit and not event.destFriendly) or (not options.useDestUnit and not event.sourceFriendly)) and string.find(spellAttributes.announce, "hostile")
-                then
-                    local soundFileName = event.spellName
-                    if options.addAnnouncementSuffix then
-                        soundFileName = soundFileName .. "-" .. options.addAnnouncementSuffix
-                    end
-                    addon.announceSpell(soundFileName, event.sourceFriendly, event.spellId)
-            end
+    options.announce = options.announce == nil and true or options.announce
+    spellAttributes.announce = attributes.announce    
+    if spellAttributes.announce and options.announce and not event.targetAura then
+        if ((options.useDestUnit and event.destFriendly) or (not options.useDestUnit and event.sourceFriendly)) and string.find(spellAttributes.announce, "friendly") or
+            ((options.useDestUnit and not event.destFriendly) or (not options.useDestUnit and not event.sourceFriendly)) and string.find(spellAttributes.announce, "hostile")
+            then
+                local soundFileName = event.spellName
+                if options.addAnnouncementSuffix then
+                    soundFileName = soundFileName .. "-" .. options.addAnnouncementSuffix
+                end
+                addon.announceSpell(soundFileName, event.sourceFriendly, event.spellId)
         end
-        
-        options.soundEffects = options.soundEffects == nil and true or options.soundEffects
-        if spellAttributes.targetOnlyCustomSound then
-            local targetGuid = UnitGUID("target")
-            if options.useDestUnit and event.destGuid ~= targetGuid or
-               not options.useDestUnit and event.sourceGuid ~= targetGuid then
-                options.soundEffects = false
-            end               
-        end
+    end
+    
+    options.soundEffects = options.soundEffects == nil and true or options.soundEffects
+    if spellAttributes.targetOnlyCustomSound then
+        local targetGuid = UnitGUID("target")
+        if options.useDestUnit and event.destGuid ~= targetGuid or
+            not options.useDestUnit and event.sourceGuid ~= targetGuid then
+            options.soundEffects = false
+        end               
+    end
 
-        if options.soundEffects and event.destFriendly ~= false then
-            if not addon.isNullOrWhiteSpace(spellAttributes.customSound) and addon.settings.soundEffects then
-                addon.playCustomSound(spellAttributes.customSound)
-            end
+    if options.soundEffects and event.destFriendly ~= false then
+        if not addon.isNullOrWhiteSpace(spellAttributes.customSound) and addon.settings.soundEffects then
+            addon.playCustomSound(spellAttributes.customSound)
         end
     end
 end
