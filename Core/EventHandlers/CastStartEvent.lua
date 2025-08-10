@@ -11,5 +11,5 @@ function addon.castStartEvent(eventInfo)
     spell.duration = addon.settings.defaultDuration
     spell.showCooldown = false
 
-    -- addon.spellBars.showSpell(attributes.bar, spell)
+    addon.spellBars.showSpell(attributes.bar, spell)
 end

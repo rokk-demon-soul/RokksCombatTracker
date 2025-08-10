@@ -13,5 +13,5 @@ function addon.auraRemovedEvent(eventInfo)
     if not spellOnBars then return end
 
     spell.duration = addon.settings.removeSpellDuration
-    -- addon.spellBars.showSpell(attributes.bar, spell)
+    addon.spellBars.showSpell(attributes.bar, spell)
 end

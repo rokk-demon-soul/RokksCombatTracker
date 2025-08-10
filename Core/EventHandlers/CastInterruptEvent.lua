@@ -9,6 +9,6 @@ function addon.castInterruptEvent(eventInfo)
         local spell = addon.getSpellConfig(event, endCastAttributes)
         spell.duration = addon.settings.removeSpellDuration
         spell.showCooldown = true
-        -- addon.spellBars.showSpell(endCastAttributes.bar, spell)
+        addon.spellBars.showSpell(endCastAttributes.bar, spell)
     end    
 end

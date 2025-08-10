@@ -42,6 +42,6 @@ function addon.auraEvent(eventInfo)
         if duration == nil then return end
         spell.duration = duration
 
-        -- addon.spellBars.showSpell(attributes.bar, spell)
+        addon.spellBars.showSpell(attributes.bar, spell)
     end
 end
